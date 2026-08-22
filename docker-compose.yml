@@ -6,9 +6,9 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: pulse
     ports:
-     - "5432:5432"
+     - "2345:5432"
     volumes:
-     - "/var/lib/postgresql/data"
+     - "pgdata:/var/lib/postgresql/data"
 
 volumes:
   pgdata:
