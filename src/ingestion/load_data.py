@@ -1,8 +1,8 @@
+import os
+
 import pandas as pd
 import sqlalchemy as db
 from dotenv import load_dotenv
-import os
-
 
 load_dotenv()
 
