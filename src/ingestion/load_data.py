@@ -19,17 +19,15 @@ raw_transactions = pd.read_csv("./data/transactions_v2.csv", index_col=False)
 raw_train = pd.read_csv("./data/train_v2.csv", index_col=False)
 
 engine = db.create_engine(DATABASE_URL, echo=True)
-conn = engine.connect()
-
-with conn:
-    raw_members.to_sql(name='MEMBERS', con=conn, if_exists='replace')
-    raw_train.to_sql(name='TRAIN', con=conn, if_exists='replace')
-    raw_transactions.to_sql(name='TRANSACTIONS', con=conn, if_exists='replace')
 
 def check_count(df_count, db_count):
     return df_count == db_count
 
-with conn:
+with engine.connect() as conn:
+    raw_members.to_sql(name='MEMBERS', con=conn, if_exists='replace')
+    raw_train.to_sql(name='TRAIN', con=conn, if_exists='replace')
+    raw_transactions.to_sql(name='TRANSACTIONS', con=conn, if_exists='replace')
+
     member_count = conn.execute(db.text('SELECT COUNT(msno) FROM "MEMBERS"')).fetchone()[0]
     transaction_count = conn.execute(db.text('SELECT COUNT(msno) FROM "TRANSACTIONS"')).fetchone()[0]
     train_count = conn.execute(db.text('SELECT COUNT(msno) FROM "TRAIN"')).fetchone()[0]
