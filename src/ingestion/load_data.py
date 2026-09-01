@@ -3,6 +3,8 @@ import os
 import pandas as pd
 import sqlalchemy as db
 from dotenv import load_dotenv
+
+
 def main() -> None:
     load_dotenv()
 
